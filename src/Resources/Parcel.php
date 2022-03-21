@@ -27,11 +27,17 @@ class Parcel extends BaseResource
     /** @var \Mvdnbrk\MyParcel\Resources\Recipient */
     public $recipient;
 
+    /**
+     * @var array|mixed
+     */
+    public $physical_properties;
+
     public function __construct(array $attributes = [])
     {
         $this->carrier = self::CARRIER_POSTNL;
         $this->options = new ShipmentOptions;
         $this->recipient = new Recipient;
+        $this->physical_properties = isset($attributes['physical_properties']) ? $attributes['physical_properties'] : [];
 
         parent::__construct($attributes);
     }
@@ -139,6 +145,7 @@ class Parcel extends BaseResource
             ->merge([
                 'recipient' => $this->recipient->toArray(),
                 'options' => $this->options->toArray(),
+                'physical_properties' => $this->physical_properties,
             ])
             ->when(! is_null($this->reference_identifier), function ($collection) {
                 return $collection->put('reference_identifier', (string) $this->reference_identifier);

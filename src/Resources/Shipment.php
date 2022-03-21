@@ -15,4 +15,9 @@ class Shipment extends Parcel
 
     /** @var int */
     public $status;
+
+    /**
+     * @var array
+     */
+    public $price;
 }

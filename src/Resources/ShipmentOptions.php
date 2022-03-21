@@ -31,6 +31,9 @@ class ShipmentOptions extends BaseResource
     /** @var bool */
     public $signature;
 
+    /** @var array */
+    public $insurance;
+
     public function __construct(array $attributes = [])
     {
         $this->setDefaultOptions();
@@ -47,6 +50,7 @@ class ShipmentOptions extends BaseResource
         $this->package_type = PackageType::PACKAGE;
         $this->delivery_type = DeliveryType::STANDARD;
         $this->only_recipient = false;
+        $this->insurance = [];
 
         return $this;
     }
@@ -64,7 +68,7 @@ class ShipmentOptions extends BaseResource
     public function toArray(): array
     {
         return collect(parent::toArray())
-            ->map(function ($value) {
+            ->filter(function ($value) {
                 if (is_bool($value)) {
                     return (int) $value;
                 }

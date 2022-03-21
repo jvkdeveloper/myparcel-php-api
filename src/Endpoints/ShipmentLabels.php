@@ -47,6 +47,13 @@ class ShipmentLabels extends BaseEndpoint
         return $this;
     }
 
+    public function setPosition($position): self
+    {
+        $this->label->setPositionAttribute($position);
+
+        return $this;
+    }
+
     public function setLabel(Label $label): self
     {
         $this->label = $label;
