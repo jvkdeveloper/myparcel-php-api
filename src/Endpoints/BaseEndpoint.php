@@ -70,6 +70,11 @@ abstract class BaseEndpoint
 
             $messageBag = collect('Error executing API call');
 
+
+            if($error->count() && isset($error->first()->fields) && is_array($error->first()->fields)) {
+                $messageBag->push(': '.collect($error->first()->human[0]));
+            }
+
             if ($error->has('code')) {
                 $messageBag->push('('.$error->get('code').')');
             }
